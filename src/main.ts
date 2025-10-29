@@ -23,7 +23,7 @@ const getEndpointResult: GetEndpointResult = (key: string, context: GetEndpointR
  * @returns The image service URL.
  */
 const resolveImage: ResolveImage = (imageName: string, source: string) => {
-  return imageName;
+    return `src/assets/${imageName}`;
 };
 
 /**
@@ -34,10 +34,10 @@ const resolveImage: ResolveImage = (imageName: string, source: string) => {
  *
  * File is inside the files array:
  * resolvePath("test.json", {source: 'files'})
- * 
+ *
  * File is inside the custom schema OR you just need the proper CDN URL:
  * resolvePath("test.json", {source: 'customSchema'})
- * 
+ *
  * Result in all cases: "https://nzz-q-assets2.static-nzz.ch/[...]/test.json"
  *
  * @param fileName The name of the file.
