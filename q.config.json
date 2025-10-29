@@ -1,0 +1,57 @@
+{
+  "items": [
+    {
+      "environments": [
+        {
+          "name": "staging",
+          "id": "ID_NOT_SET"
+        },
+        {
+          "name": "production",
+          "id": "ID_NOT_SET"
+        }
+      ],
+      "item": {
+        "customSchema": "",
+        "displayOptionsSchema": {},
+        "files": [
+          {
+            "loadSyncBeforeInit": true,
+            "file": {
+              "path": "./dist/bundle-{id}.js"
+            }
+          },
+          {
+            "loadSyncBeforeInit": true,
+            "file": {
+              "path": "./dist/bundle.css"
+            }
+          }
+        ],
+        "sophieModules": [
+          {
+            "submodules": [],
+            "nameVersion": "sophie-font@master"
+          },
+          {
+            "submodules": [],
+            "nameVersion": "sophie-color@master"
+          },
+          {
+            "submodules": [],
+            "nameVersion": "sophie-viz-color@master"
+          }
+        ],
+        "trackingComponent": {
+          "componentInfo": {
+            "componentName": "Fig2HTML2Q"
+          },
+          "category": {
+            "componentType": "storytelling",
+            "componentSubType1": "Q graphic"
+          }
+        }
+      }
+    }
+  ]
+}

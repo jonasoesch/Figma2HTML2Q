@@ -1,0 +1,17 @@
+{
+    "git.ignoreLimitWarning": true,
+    "svelte.enable-ts-plugin": true,
+    "svelte.plugin.svelte.defaultScriptLanguage": "ts",
+    "svelte.plugin.css.globals": "src/main.scss",
+    "files.associations": {
+        "*.svelte": "svelte"
+    },
+    "somesass.workspace.loadPaths": [
+        "src/styles"
+    ],
+    	// Recommended if you don't rely on @import
+	"somesass.scss.completion.suggestFromUseOnly": true,
+	"somesass.sass.completion.suggestFromUseOnly": true,
+	// Optional, if you get suggestions from the current document after namespace.$ (you don't need to type the $ for narrowing down suggestions)
+	"editor.wordBasedSuggestions": "off",
+}

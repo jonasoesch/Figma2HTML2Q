@@ -1,0 +1,50 @@
+{
+  "name": "Fig2HTML2Q",
+  "version": "1.1.0",
+  "prettier": "@nzz/et-utils-config-prettier",
+  "type": "module",
+  "devDependencies": {
+    "@eslint/compat": "^1.3.1",
+    "@eslint/js": "^9.31.0",
+    "@nzz/et-utils-config-prettier": "^1.1.0",
+    "@nzz/nzz.ch-static": "github:nzzdev/ed-tech-nzz.ch-static#v1.3.0",
+    "@sveltejs/vite-plugin-svelte": "^6.1.0",
+    "@tsconfig/svelte": "^5.0.4",
+    "cssnano": "^7.1.0",
+    "eslint": "^9.31.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-svelte": "^3.11.0",
+    "globals": "^16.3.0",
+    "postcss": "^8.5.6",
+    "postcss-preset-env": "^10.2.4",
+    "prettier": "^3.6.2",
+    "prettier-plugin-svelte": "^3.4.0",
+    "sass": "^1.89.2",
+    "svelte": "^5.36.7",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "tslib": "^2.8.1",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.37.0",
+    "vite": "^7.0.5"
+  },
+  "scripts": {
+    "update-all": "npm run build && pnpx @nzz/q-cli update-item",
+    "update-production": "Q_ENV=production npm run build && pnpx @nzz/q-cli update-item -e production",
+    "update-staging": "Q_ENV=staging npm run build && pnpx @nzz/q-cli update-item -e staging",
+    "update-test": "Q_ENV=test npm run build && pnpx @nzz/q-cli update-item -e test",
+    "build": "NODE_ENV=production tsc --noEmit && vite build",
+    "build:debug": "NODE_ENV=production vite build --debug",
+    "dev": "pnpm start-hlv",
+    "start-regular": "LAYOUT=regular vite",
+    "start-ls": "LAYOUT=longform-standard vite",
+    "start-lv": "LAYOUT=longform-visual vite",
+    "start-hlv": "LAYOUT=headless-longform-visual vite",
+    "lint": "eslint .",
+    "format": "prettier --write ./src"
+  },
+  "dependencies": {
+    "@nzz/et-utils-tracking": "^1.1.2",
+    "dayjs": "^1.11.13"
+  }
+}
