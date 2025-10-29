@@ -6,6 +6,8 @@ import { glob } from 'glob';
 import { createReadStream } from 'fs';
 import unzipper from 'unzipper';
 
+const CONFIG_PATH = path.join(process.cwd(), 'q.config.json');
+
 const EXPORT_DIR = path.join(process.cwd(), 'export');
 const TEMP_DIR = path.join(process.cwd(), 'temp');
 const ASSETS_DIR = path.join(process.cwd(), 'src', 'assets');
@@ -76,10 +78,22 @@ async function processZipFile(zipPath) {
     // Clean up
     await fs.remove(TEMP_DIR);
 
+    // Update q.config.json with new image paths
+    console.log('Updating q.config.json...');
+    const qConfig = await fs.readJSON(CONFIG_PATH);
+
+    // Update the assets array in the first item's assetGroups
+    if (qConfig.items?.[0]?.item?.assetGroups?.[0]) {
+        qConfig.items[0].item.assetGroups[0].assets = imageFiles.map(file => ({
+            path: `./src/assets/${path.basename(file)}`
+        }));
+        await fs.writeJSON(CONFIG_PATH, qConfig, { spaces: 2 });
+        console.log('- q.config.json updated with new image paths');
+    }
+
     console.log('\nProcessing complete!');
     console.log(`- Svelte component moved to: ${targetSveltePath}`);
     console.log(`- ${imageFiles.length} images moved to: ${ASSETS_DIR}`);
-    console.log('- Original zip file has been removed');
 }
 
 async function main() {
