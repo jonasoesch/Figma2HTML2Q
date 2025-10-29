@@ -1,11 +1,10 @@
 <script lang="ts">
   import type { AppProps } from '@interfaces/general';
-  import dayjs from 'dayjs/esm';
   import qLogo from '@assets/q-logo.svg';
-  import exampleJson from '@assets/example.json';
   import { elementIsReady } from './attachments/elementIsReady';
   import { setupTracking } from './attachments/setupTracking'
   import type { Attachment } from 'svelte/attachments';
+  import Graphic from './Graphic.svelte'
 
   let { displayOptions, getEndpointResult, qDoc, resolveImage, resolvePath }: AppProps = $props();
 
@@ -32,16 +31,7 @@
   <!-- Remove "supports-dark-mode" class if your app requires a white background in dark mode. -->
   <!-- Add `setMarginProperty` utility function if you need to set the top and bottom margins to avoid the app's UI elements. -->
   <img src={qLogo} alt="Q Logo" />
-  <p class="s-font-note">{exampleJson.description}</p>
-  <pre>
-		<strong>DisplayOptions</strong>
-		<code>{JSON.stringify(displayOptions, null, 4)}</code>
-	</pre>
-  <pre>
-		<strong>qDoc</strong>
-		<code>{JSON.stringify(qDoc, null, 4)}</code>
-	</pre>
-  <p class="s-font-note-s">{dayjs().format('DD.MM.YYYY')}</p>
+  <Graphic />
 </app-container>
 
 <style lang="scss">
