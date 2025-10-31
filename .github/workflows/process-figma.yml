@@ -1,0 +1,33 @@
+name: Upload Figma Export to Q
+
+on:
+  repository_dispatch:
+    types: [process-figma]
+
+jobs:
+  process-figma:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Process Figma Export
+        run: npm run process-figma "${{ github.event.client_payload.zipUrl }}" "${{ github.event.client_payload.id }}"
+
+      # Install Q-CLI
+      - name: Install node packages
+        run: npm install -g @nzz/q-cli
+      - name: Run Q cli
+        run: Q update-item
+        env:
+            Q_PRODUCTION_SERVER: ${{ secrets.Q_PRODUCTION_SERVER }}
+            Q_PRODUCTION_ACCESSTOKEN: ${{ secrets.Q_PRODUCTION_ACCESSTOKEN }}
