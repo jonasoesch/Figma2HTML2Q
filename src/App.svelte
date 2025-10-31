@@ -2,9 +2,9 @@
   import type { AppProps } from '@interfaces/general';
   import qLogo from '@assets/q-logo.svg';
   import { elementIsReady } from './attachments/elementIsReady';
-  import { setupTracking } from './attachments/setupTracking'
+  import { setupTracking } from './attachments/setupTracking';
   import type { Attachment } from 'svelte/attachments';
-  import Graphic from './Graphic.svelte'
+  import Graphic from './Graphic.svelte';
 
   let { displayOptions, getEndpointResult, qDoc, resolveImage, resolvePath }: AppProps = $props();
 
@@ -17,17 +17,15 @@
   /** Example function that gets executed on mount, using the attachment technique.
    * https://svelte.dev/docs/svelte/@attach
    **/
-  const loadResultOnMount: Attachment = async () => {
-    const result = await getEndpointResult('test', { query: {} });
-    console.log('getEndpointResult', result);
-  }
-
+  const loadResultOnMount: Attachment = async () => {};
 </script>
 
-<app-container class="supports-dark-mode"
-               {@attach loadResultOnMount}
-               {@attach elementIsReady}
-               {@attach setupTracking('your-project-name')}>
+<app-container
+  class="supports-dark-mode"
+  {@attach loadResultOnMount}
+  {@attach elementIsReady}
+  {@attach setupTracking('your-project-name')}
+>
   <!-- Remove "supports-dark-mode" class if your app requires a white background in dark mode. -->
   <!-- Add `setMarginProperty` utility function if you need to set the top and bottom margins to avoid the app's UI elements. -->
   <img src={qLogo} alt="Q Logo" />
@@ -86,7 +84,8 @@
 
     // Also note that none of these fonts support a font-weight > 500,
     // they are all capped at medium weight.
-    strong, b {
+    strong,
+    b {
       font-weight: 500;
     }
 
