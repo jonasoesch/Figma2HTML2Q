@@ -3,6 +3,16 @@ name: Upload Figma Export to Q
 on:
   repository_dispatch:
     types: [process-figma]
+  workflow_dispatch:
+    inputs:
+      zipUrl:
+        description: 'URL of the Figma export ZIP file'
+        required: true
+        type: string
+      id:
+        description: 'Production ID'
+        required: true
+        type: string
 
 jobs:
   process-figma:
@@ -21,7 +31,7 @@ jobs:
         run: npm ci
 
       - name: Process Figma Export
-        run: npm run process-figma "${{ github.event.client_payload.zipUrl }}" "${{ github.event.client_payload.id }}"
+        run: npm run process-figma "${{ github.event_name == 'repository_dispatch' && github.event.client_payload.zipUrl || inputs.zipUrl }}" "${{ github.event_name == 'repository_dispatch' && github.event.client_payload.id || inputs.id }}"
 
       # Install Q-CLI
       - name: Install node packages
