@@ -16,17 +16,17 @@ const TARGET_COMPONENT_NAME = 'Graphic.svelte';
 async function downloadZipFile(zipUrl) {
     console.log('Downloading ZIP file...');
     const response = await fetch(zipUrl);
-    
+
     if (!response.ok) {
         throw new Error(`Failed to download ZIP file: ${response.statusText}`);
     }
 
     // Create temp directory if it doesn't exist
     await fs.ensureDir(TEMP_DIR);
-    
+
     const zipPath = path.join(TEMP_DIR, 'download.zip');
     const fileStream = fs.createWriteStream(zipPath);
-    
+
     await new Promise((resolve, reject) => {
         response.body.pipe(fileStream)
             .on('finish', resolve)
@@ -107,8 +107,8 @@ async function processZipFile(zipPath, id) {
     }
 
     // Update the production environment ID
-    if (qConfig.items?.[0]?.environments?.[1]) {
-        qConfig.items[0].environments[1].id = id;
+    if (qConfig.items?.[0]?.environments?.[0]) {
+        qConfig.items[0].environments[0].id = id;
     }
 
     await fs.writeJSON(CONFIG_PATH, qConfig, { spaces: 2 });

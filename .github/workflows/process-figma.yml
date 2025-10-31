@@ -27,21 +27,39 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_ENV
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
       - name: Install dependencies
-        run: npm install
+        run: pnpm install --frozen-lockfile
 
       - name: Process Figma Export
-        run: npm run process-figma "${{ github.event_name == 'repository_dispatch' && github.event.client_payload.zipUrl || inputs.zipUrl }}" "${{ github.event_name == 'repository_dispatch' && github.event.client_payload.id || inputs.id }}"
+        run: pnpm process-figma "${{ github.event_name == 'repository_dispatch' && github.event.client_payload.zipUrl || inputs.zipUrl }}" "${{ github.event_name == 'repository_dispatch' && github.event.client_payload.id || inputs.id }}"
 
-      # Run Svelte
-      - name: Run Svelte
-        run: npm run build
+      - name: Build Svelte
+        run: pnpm build
 
-      # Install Q-CLI
-      - name: Install node packages
-        run: npm install -g @nzz/q-cli
+      - name: Install Q-CLI globally
+        run: pnpm add -g @nzz/q-cli
+
       - name: Run Q cli
         run: Q update-item
         env:
-            Q_PRODUCTION_SERVER: ${{ secrets.Q_PRODUCTION_SERVER }}
-            Q_PRODUCTION_ACCESSTOKEN: ${{ secrets.Q_PRODUCTION_ACCESSTOKEN }}
+          Q_PRODUCTION_SERVER: ${{ secrets.Q_PRODUCTION_SERVER }}
+          Q_PRODUCTION_ACCESSTOKEN: ${{ secrets.Q_PRODUCTION_ACCESSTOKEN }}
