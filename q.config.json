@@ -3,10 +3,6 @@
     {
       "environments": [
         {
-          "name": "staging",
-          "id": "ID_NOT_SET"
-        },
-        {
           "name": "production",
           "id": "ID_NOT_SET"
         }
