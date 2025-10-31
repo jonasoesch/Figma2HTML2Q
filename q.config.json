@@ -28,6 +28,19 @@
             }
           }
         ],
+        "assetGroups": [
+          {
+            "assets": [
+              {
+                "path": "./src/assets/630px.png"
+              },
+              {
+                "path": "./src/assets/370px.png"
+              }
+            ],
+            "name": "img"
+          }
+        ],
         "sophieModules": [
           {
             "submodules": [],
