@@ -77,9 +77,14 @@ onMount(() => {((containerId) => {
 				const nameSpace = '';
 				let waiting = !!window.IntersectionObserver;
 				let observer;
-				update();
+				const resizeObserver = new ResizeObserver(() => {
+					update();
+				});
+				resizeObserver.observe(container);
 				document.addEventListener('DOMContentLoaded', update);
 				window.addEventListener('resize', onResize);
+
+				return () => resizeObserver.disconnect();
 		})("testfile-box", {namespace: "", setup: window.setupInteractive || window.getComponent});})</script><div id="testfile-box" class="figma2html">
 
 
