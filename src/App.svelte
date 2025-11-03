@@ -28,7 +28,6 @@
 >
   <!-- Remove "supports-dark-mode" class if your app requires a white background in dark mode. -->
   <!-- Add `setMarginProperty` utility function if you need to set the top and bottom margins to avoid the app's UI elements. -->
-  <img src={qLogo} alt="Q Logo" />
   <Graphic {resolveImage} />
 </app-container>
 
