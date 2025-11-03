@@ -1,7 +1,7 @@
 import { resolve } from 'node:path';
 import { defineConfig, PluginOption, type BuildOptions } from 'vite';
 import { svelte, vitePreprocess } from '@sveltejs/vite-plugin-svelte';
-import { createFullwidthQElement, getHtml } from '@nzz/nzz.ch-static';
+import { createContentWidthQElement, getHtml } from '@nzz/nzz.ch-static';
 import qConfig from './q.config.json';
 
 const production = process.env.NODE_ENV === 'production';
@@ -76,7 +76,7 @@ const htmlLayout = {
       layout: LAYOUT,
       builtCssFilename: null,
       builtJsFilename: null,
-      content: createFullwidthQElement('custom-code-fw'),
+      content: createContentWidthQElement('custom-code-cw'),
       author: 'NZZ Visuals',
       lead: 'LEAD',
       title: 'TITLE',
