@@ -76,7 +76,7 @@ const htmlLayout = {
       layout: LAYOUT,
       builtCssFilename: null,
       builtJsFilename: null,
-      content: createContentWidthQElement('custom-code-fw'),
+      content: createContentWidthQElement('custom-code-cw'),
       author: 'NZZ Visuals',
       lead: 'LEAD',
       title: 'TITLE',

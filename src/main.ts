@@ -50,7 +50,7 @@ const resolvePath: ResolvePath = (fileName: string, options: { source: string })
 
 const displayOptions = {};
 
-const target = document.querySelector('#custom-code-fw');
+const target = document.querySelector('#custom-code-cw');
 
 const app = mount(App, {
   target: target as Element,
