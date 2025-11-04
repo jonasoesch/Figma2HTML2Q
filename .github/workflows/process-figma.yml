@@ -58,7 +58,7 @@ jobs:
 
       # No global install; dlx executes the pkg’s bin directly
       - name: Run Q cli
-        run: pnpm dlx @nzz/q-cli Q update-item
+        run: pnpm dlx @nzz/q-cli update-item
         env:
           Q_PRODUCTION_SERVER: ${{ secrets.Q_PRODUCTION_SERVER }}
           Q_PRODUCTION_ACCESSTOKEN: ${{ secrets.Q_PRODUCTION_ACCESSTOKEN }}
