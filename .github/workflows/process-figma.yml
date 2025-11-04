@@ -22,45 +22,41 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node.js (with pnpm cache)
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '20.x'
+          cache: 'pnpm'
+          cache-dependency-path: |
+            pnpm-lock.yaml
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v3
+      # Prefer installing pnpm via pnpm/action-setup (fast & pinned)
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
         with:
-          version: 9
-          run_install: true
-          cache-dependency-path: pnpm-lock.yaml
+          version: 9.12.0
+          run_install: false
 
-      - name: Get pnpm store directory
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_ENV
+      # Fill the pnpm store purely from the lockfile (fast on cache hit)
+      - name: pnpm fetch (prime store)
+        run: pnpm fetch
 
-      - name: Setup pnpm cache
-        uses: actions/cache@v3
-        with:
-          path: ${{ env.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+      # Offline install uses the store; avoids registry calls on cache hit
+      - name: Install dependencies (offline when possible)
+        run: pnpm install --frozen-lockfile --offline
 
       - name: Process Figma Export
-        run: pnpm process-figma "${{ github.event_name == 'repository_dispatch' && github.event.client_payload.zipUrl || inputs.zipUrl }}" "${{ github.event_name == 'repository_dispatch' && github.event.client_payload.id || inputs.id }}"
+        run: >
+          pnpm process-figma
+          "${{ github.event_name == 'repository_dispatch' && github.event.client_payload.zipUrl || inputs.zipUrl }}"
+          "${{ github.event_name == 'repository_dispatch' && github.event.client_payload.id || inputs.id }}"
 
       - name: Build Svelte
         run: pnpm build
 
-      - name: Install Q-CLI globally
-        run: pnpm add -g @nzz/q-cli
-
+      # No global install; dlx executes the pkg’s bin directly
       - name: Run Q cli
-        run: Q update-item
+        run: pnpm dlx @nzz/q-cli Q update-item
         env:
           Q_PRODUCTION_SERVER: ${{ secrets.Q_PRODUCTION_SERVER }}
           Q_PRODUCTION_ACCESSTOKEN: ${{ secrets.Q_PRODUCTION_ACCESSTOKEN }}
