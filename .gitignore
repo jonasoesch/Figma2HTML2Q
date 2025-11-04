@@ -21,4 +21,5 @@ dist-ssr
 *.sln
 *.sw?
 export/*.zip
+!export/testfile.zip
 src/assets/*.png
